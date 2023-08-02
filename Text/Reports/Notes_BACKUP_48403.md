@@ -34,8 +34,6 @@ Package (CRAN Package EDA)
 	- Univariate plots 
 	- Bivariate plots 
 
-Review 
-Search review papers
 
 Can i make a clash 
 

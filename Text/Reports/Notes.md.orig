@@ -37,7 +37,9 @@ Package (CRAN Package EDA)
 Review 
 Search review papers
 
-Can i make a clash 
-
+<<<<<<< HEAD
 
 Testing R Studio Push and Pull 
+=======
+Can i make a clash 
+>>>>>>> ccd68cb4c1d6de762707c17000dc95acc6ae7d90
