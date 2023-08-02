@@ -1,4 +1,4 @@
-![image](https://github.com/MF783/DATA301-Group-5/assets/95201544/c5322a5a-45cb-4b27-b761-bde72cd88ce3) Hi Guys, 
+Hi Guys, 
 
  Please see notes from Alejandro's meeting below: 
 
