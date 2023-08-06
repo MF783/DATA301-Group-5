@@ -1,0 +1,9 @@
+
+```{r}
+data = read.csv('../data/cas_data.csv')
+head(data)
+
+
+summary(data)
+```
+

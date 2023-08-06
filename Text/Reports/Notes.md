@@ -2,7 +2,7 @@ Hi Guys,
 
  Please see notes from Alejandro's meeting below: 
 
-Web Of Data 
+Web Of Science
 	- Check references
 	- Check for existing analysis 
 
@@ -37,4 +37,3 @@ Package (CRAN Package EDA)
 Review 
 Search review papers
 
-Can i make a clash 
