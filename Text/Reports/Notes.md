@@ -2,7 +2,7 @@ Hi Guys,
 
  Please see notes from Alejandro's meeting below: 
 
-Web Of Data 
+Web Of Data
 	- Check references
 	- Check for existing analysis 
 
