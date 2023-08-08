@@ -1,3 +1,14 @@
+    
+  Possible questions: 
+  
+  - Do speed cameras reduce crashes 
+- Does the type of vehicle affect crash outcome (has it changed over time)
+- Do public holidays have any impact on crash data
+- Does the democratic of the crash area affect the outcome 
+
+    
+    
+    
     Geographical Trends:
         Identify crash hotspots by region or city.
         Map high-frequency crash areas and correlate with traffic volumes, infrastructure, or road types.
