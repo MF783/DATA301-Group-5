@@ -1,7 +1,17 @@
     
-  Possible questions: 
+Possible questions: 
   
-  - Do speed cameras reduce crashes 
+Improve Outcomes:
+        How can we reduce the number of fatal crashes by providing a reactive geospacial risk tool that allows government to better focus their road safety efforts.
+  
+Ethical Aspects:
+        Determine if certain demographics (based on vehicle type, location, etc.) are more prone to accidents and the implications of such findings.
+        
+Correlation with Population and Economic Indicators:
+        Assess if areas with a higher population or economic growth have a proportional increase in road crashes.
+        Compare the number of crashes to the total number of registered vehicles in an area.
+  
+- Do speed cameras reduce crashes 
 - Does the type of vehicle affect crash outcome (has it changed over time)
 - Do public holidays have any impact on crash data
 - Does the democratic of the crash area affect the outcome 
@@ -22,9 +32,7 @@
         Identify if certain vehicle types (e.g., trucks, motorcycles, electric cars) are more prone to accidents.
         Investigate the age of vehicles involved in accidents to see if older vehicles are more prone to crashes.
 
-    Correlation with Population and Economic Indicators:
-        Assess if areas with a higher population or economic growth have a proportional increase in road crashes.
-        Compare the number of crashes to the total number of registered vehicles in an area.
+ 
 
     Comparative Analysis with Cultural Indicators:
         Investigate if areas with certain cultural events or festivities have a spike in road accidents.
@@ -38,5 +46,4 @@
     Vehicle Manufacturer Data:
         Explore if certain car brands or models are more involved in accidents, which could highlight possible defects or safety issues.
 
-    Ethical Aspects:
-        Determine if certain demographics (based on vehicle type, location, etc.) are more prone to accidents and the implications of such findings.
+    
