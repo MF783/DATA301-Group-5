@@ -60,7 +60,7 @@ ggplot(crash_data, aes(x=region)) + geom_bar() + ggtitle("Number of Crashes by R
 #### Boxplot of advisorySpeed vs crashSeverity
 ```{r}
 ggplot(crash_data, aes(x = crashSeverity, y = advisorySpeed)) + 
-  geom_boxplot() +
+  geom_boxplot(notch=TRUE) +
   ggtitle("Advisory Speed vs Crash Severity") +
   xlab("Crash Severity") + 
   ylab("Advisory Speed")

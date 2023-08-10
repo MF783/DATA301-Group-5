@@ -1,8 +1,55 @@
     
+Interactions
+- Maginal information is not enought. 
+- Start simple, and increase complexity of model. 
+
+Interaction between speed and weather is the most relevant factor for bad crashed, turns out to be irrelevent for mild ones. 
+
+Sensitivity analysis of regression: 
+
+Weather: Categoriatal 
+- Sensitivity aalysis 
+  - How much does crash change, when weather modves. (Category will jump, crash will increase )
+  - Sensitivity, gradient for numerical, jumps for categorical. 
+  - Find ratio between how much 1 changes the other. 
+  
+  
+  Gantt: 
+  - Split into 12 weeks
+  - Interested in how to group 
+    
+  -   Checking 
+  -   Cleaning 
+  
+  KanBan 
+  - Used to answer the why, who, where
+  
+  
+  Define which are Character, Factors, Numerical, categorical. 
+  - Analysis of missing datapoints 
+  - Analaysis of varibles. 
+  - Plot all variables against major / fatal crashes. 
+  - Combine variables (Major / Fatal?)
+  - Use the EDA package recconmended in announcement.
+
 Possible questions: 
   
 Improve Outcomes:
-        How can we reduce the number of fatal crashes by providing a reactive geospacial risk tool that allows government to better focus their road safety efforts.
+        How can we reduce the number of fatal crashes by providing a risk tool that allows government to better focus their road safety efforts.
+        
+        How can we use statistical inference and modelling tools using CAS Crash data to allow for better roading outcomes. 
+        
+        How can we use CAS Crash Data and other NZStats datasets to provide statistical inference to model relationships between demographic factors and crash data. 
+        
+
+Questions for Alejandro: 
+- Is there a specific direction that you are looking for us to go with the project. 
+- How big should our scope be? 
+        - How detailed of an analysis do we need for a good grade? 
+        - What happens if we cant finish an ambiguious goal? 
+        - What are the criteria that we will be marked on? 
+        - Whats the level of colaboration allows for the individual report phase? 
+- Can we use just the CAS dataset, or do we need to merge datasets? 
   
 Ethical Aspects:
         Determine if certain demographics (based on vehicle type, location, etc.) are more prone to accidents and the implications of such findings.
