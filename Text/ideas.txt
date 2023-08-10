@@ -16,6 +16,7 @@ Questions for Alejandro:
         - What happens if we cant finish an ambiguious goal? 
         - What are the criteria that we will be marked on? 
         - Whats the level of colaboration allows for the individual report phase? 
+- Can we use just the CAS dataset, or do we need to merge datasets? 
   
 Ethical Aspects:
         Determine if certain demographics (based on vehicle type, location, etc.) are more prone to accidents and the implications of such findings.
