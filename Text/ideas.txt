@@ -25,9 +25,12 @@ Weather: Categoriatal
   - Used to answer the why, who, where
   
   
-  Define Character, Factors, Numerical and Factors. 
-  - XLWAR ANALYSIS 
-  - Then use the EDA package. 
+  Define which are Character, Factors, Numerical, categorical. 
+  - Analysis of missing datapoints 
+  - Analaysis of varibles. 
+  - Plot all variables against major / fatal crashes. 
+  - Combine variables (Major / Fatal?)
+  - Use the EDA package recconmended in announcement.
 
 Possible questions: 
   
