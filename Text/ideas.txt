@@ -8,6 +8,14 @@ Improve Outcomes:
         
         How can we use CAS Crash Data and other NZStats datasets to provide statistical inference to model relationships between demographic factors and crash data. 
         
+
+Questions for Alejandro: 
+- Is there a specific direction that you are looking for us to go with the project. 
+- How big should our scope be? 
+        - How detailed of an analysis do we need for a good grade? 
+        - What happens if we cant finish an ambiguious goal? 
+        - What are the criteria that we will be marked on? 
+        - Whats the level of colaboration allows for the individual report phase? 
   
 Ethical Aspects:
         Determine if certain demographics (based on vehicle type, location, etc.) are more prone to accidents and the implications of such findings.
