@@ -2,7 +2,12 @@
 Possible questions: 
   
 Improve Outcomes:
-        How can we reduce the number of fatal crashes by providing a reactive geospacial risk tool that allows government to better focus their road safety efforts.
+        How can we reduce the number of fatal crashes by providing a risk tool that allows government to better focus their road safety efforts.
+        
+        How can we use statistical inference and modelling tools using CAS Crash data to allow for better roading outcomes. 
+        
+        How can we use CAS Crash Data and other NZStats datasets to provide statistical inference to model relationships between demographic factors and crash data. 
+        
   
 Ethical Aspects:
         Determine if certain demographics (based on vehicle type, location, etc.) are more prone to accidents and the implications of such findings.
