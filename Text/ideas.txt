@@ -1,4 +1,34 @@
     
+Interactions
+- Maginal information is not enought. 
+- Start simple, and increase complexity of model. 
+
+Interaction between speed and weather is the most relevant factor for bad crashed, turns out to be irrelevent for mild ones. 
+
+Sensitivity analysis of regression: 
+
+Weather: Categoriatal 
+- Sensitivity aalysis 
+  - How much does crash change, when weather modves. (Category will jump, crash will increase )
+  - Sensitivity, gradient for numerical, jumps for categorical. 
+  - Find ratio between how much 1 changes the other. 
+  
+  
+  Gantt: 
+  - Split into 12 weeks
+  - Interested in how to group 
+    
+  -   Checking 
+  -   Cleaning 
+  
+  KanBan 
+  - Used to answer the why, who, where
+  
+  
+  Define Character, Factors, Numerical and Factors. 
+  - XLWAR ANALYSIS 
+  - Then use the EDA package. 
+
 Possible questions: 
   
 Improve Outcomes:
