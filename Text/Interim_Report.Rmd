@@ -1,0 +1,86 @@
+---
+title: "**DATA303 Interim Report - Group 5**"
+author:
+  - 'Michael Fry 300570669'
+  - 'Fletcher Smith '
+  - 'Matthew Smaill '
+date: "`r format(Sys.time(), '%A, %d %B')`"
+output: pdf_document
+toc: true
+---
+
+\newpage
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#install.packages(c('dplyr','ggplot2','skimr','ggcorrplot','tidyr'))
+
+library(ggcorrplot)
+library(dplyr)
+library(ggplot2)
+library(skimr)
+library(tidyr)
+
+
+```
+
+
+# Background and Data
+
+## Dataset 
+
+## Background 
+
+## Types of Data 
+
+## Completeness 
+
+
+\newpage
+
+# Ethics and Privacy 
+
+## Ethics 
+
+## Privacy 
+
+## Security 
+
+
+\newpage
+
+# Exploratory Data Analytics
+
+```{r}
+# Find subset of variables that I want to work with. 
+
+
+# Explain the definitions of the variables in each table/plot
+# Comment on the main features of each plot
+
+
+
+
+
+
+
+
+
+
+```
+
+\newpage
+
+# Individual Contributions
+
+## Michael Fry 
+
+## Fletcher Smith 
+
+## Matthew Smaill
+
+
+
+
+
