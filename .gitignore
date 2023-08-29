@@ -1,6 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,windows,linux,tex,r,microsoftoffice
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,linux,tex,r,microsoftoffice
 
+
+### Files ###
+DATA301-Group-5.Rproj
+
 ### Linux ###
 *~
 
