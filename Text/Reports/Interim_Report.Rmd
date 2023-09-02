@@ -12,35 +12,46 @@ bibliography: Interim_Report.bib
 
 \newpage
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-
-#install.packages(c('dplyr','ggplot2','skimr','ggcorrplot','tidyr'))
-
+```{r setup, include=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning=FALSE)
+knitr::opts_chunk$set(fig.width=6)
+knitr::opts_chunk$set(fig.height=4)
+#install.packages(c('dplyr','ggplot2','skimr','ggcorrplot','tidyr', 'pander','DataExplorer')))
 library(ggcorrplot)
 library(dplyr)
 library(ggplot2)
 library(skimr)
 library(tidyr)
+library(pander)
+library(DataExplorer)
+options(scipen = 999)
+
+crash_data = read.csv('../../Data/crash_data.csv')
 
 ```
 
-
 # Background and Data
+
+## Background
+
 The New Zealand Crash Analysis System (CAS) dataset is a comprehensive compilation of traffic crash information recorded by the Waka Kotahi, the New Zealand Transport Agency. The CAS dataset constitutes a valuable resource for gaining insights into the factors contributing to traffic crashes across New Zealand's diverse roadways and public-access areas. This report provides an overview of the CAS dataset, its significance, contents, and inherent characteristics.
 
 ## Dataset (source and coverage)
+
 The CAS data originates from the Waka Kotahi Crash Analysis System, which serves as a repository for all reported traffic crashes involving motor vehicles in New Zealand. This system is only fueled by information provided by the New Zealand Police. The scope of CAS encompasses crashes that occur on any road segment or area within the country where the public has legal access with a motor vehicle. This extensive coverage ensures that the dataset represents a wide array of scenarios, road types, and conditions.
 
-## Background 
 
 ## Importance
+
 The CAS dataset is of considerable interest due to its potential to address critical questions surrounding road safety and accident prevention. One of the central questions that this dataset can help answer is: "What statistical techniques can we use to find the relational effect that key variables have on major automotive crashes?" By analyzing the dataset, we  can identify patterns, correlations, and trends that shed light on the factors contributing to major vehicle crashes. 
 
 ## Types of Data 
+
 The CAS dataset incorporates various types of data, each contributing to a holistic understanding of traffic crashes. This dataset comprises 12 logical variables, 2 date variables, 15 categorical variables, and 41 numeric variables. The inclusion of diverse data types allows for a multi-faceted analysis that captures both quantitative and qualitative aspects of crash incidents.
 
 ## Completeness 
+
 It's important to note that the CAS dataset, while comprehensive, does contain missing values. Out of all the columns in the dataset, only X, Y, ObjectID, and crashYear are entirely devoid of missing values. However, various other variables exhibit significant instances of missing data. For instance, variables such as Bridge, debris, fence, vehicle, and waterRiver each have 488,831 missing values. This variation in missing data across variables underscores the complexity of real-world data collection and emphasizes the need for careful consideration when conducting analyses or drawing conclusions.
 
 In conclusion, the New Zealand Crash Analysis System (CAS) dataset serves as a valuable resource for investigating the dynamics of traffic crashes in New Zealand. Its extensive coverage, diverse data types, and potential to answer crucial questions make it an essential tool for researchers, policymakers, and analysts aiming to enhance road safety and prevent major automotive crashes. However, the presence of missing data underscores the importance of thorough data preprocessing and analysis techniques to ensure accurate and meaningful insights.
@@ -62,14 +73,250 @@ In conclusion, the New Zealand Crash Analysis System (CAS) dataset serves as a v
 
 # Exploratory Data Analytics
 
-```{r}
-# Find subset of variables that I want to work with. 
 
+```{r, warning=FALSE}
 
-# Explain the definitions of the variables in each table/plot
-# Comment on the main features of each plot
+# Summarize the data
+fatalities_by_vehicle <- crash_data %>%
+  summarise(
+    Bicycle = sum(bicycle * fatalCount, na.rm = TRUE),
+    Bus = sum(bus * fatalCount, na.rm = TRUE),
+    Car_StationWagon = sum(carStationWagon * fatalCount, na.rm = TRUE),
+    Moped = sum(moped * fatalCount, na.rm = TRUE),
+    Motorcycle = sum(motorcycle * fatalCount, na.rm = TRUE),
+    SUV = sum(suv * fatalCount, na.rm = TRUE),
+    Taxi = sum(taxi * fatalCount, na.rm = TRUE),
+    Truck = sum(truck * fatalCount, na.rm = TRUE),
+    Unknown_Vehicle = sum(unknownVehicleType * fatalCount, na.rm = TRUE),
+    Van_Utility = sum(vanOrUtility * fatalCount, na.rm = TRUE)
+  )
+
+# Convert to a longer format
+longer <- fatalities_by_vehicle %>% 
+  pivot_longer(
+    everything(),
+    names_to = 'Type',
+    values_to = 'Fatalities'
+  )
+
+## Group by Region 
+total_crashes_by_region <- crash_data %>%
+  group_by(region) %>%
+  summarise(total_crashes = n())
+
+# Step 2: Calculate the proportion of each type of crash within each region
+crash_severity_by_region <- crash_data %>%
+  group_by(crashSeverity, region) %>%
+  summarise(n = n()) %>%
+  left_join(total_crashes_by_region, by = "region") %>%
+  mutate(proportion = n / total_crashes)
+
+crash_severity_by_region <- crash_severity_by_region %>% 
+    filter(!is.na(region) & region != "")
+
+crash_severity_by_region$crashSeverity <- factor(crash_severity_by_region$crashSeverity, 
+      levels = c("Non-Injury Crash", "Minor Crash", "Serious Crash", "Fatal Crash"))
+
+crash_data$crashSeverity <- factor(crash_data$crashSeverity,  levels = c("Non-Injury Crash", "Minor Crash", "Serious Crash", "Fatal Crash"))
+
+severity_colors <- c("Non-Injury Crash" = "#8DB3AD", "Minor Crash" = "#F5D7B1", "Serious Crash" = "#F05161", "Fatal Crash" = '#262626')
 ```
 
+
+## Summary Tables 
+
+```{r, warning=FALSE}
+# Create a table showing the count and percentage of missing values for each variable
+missing_value_table <- data.frame(
+  Count = sapply(crash_data, function(x) sum(is.na(x))),
+  stringsAsFactors = FALSE
+) %>%
+  mutate(Percent_Missing = (Count / nrow(crash_data)) * 100) %>%
+  filter(Percent_Missing > 10) %>%
+  arrange(desc(Percent_Missing))
+
+
+
+missing_value_table
+```
+## Plots 
+
+### Advisory Speed Distribution
+
+```{r, warning=FALSE}
+ggplot(crash_data, aes(x = speedLimit)) + 
+  geom_histogram(binwidth = 5) +
+  theme_minimal() +
+  labs(x = "Advisory Speed", y = "Count", title = "Speed Limit Distribution")+ 
+  scale_x_continuous(breaks = seq(0, 100, by = 10))
+
+```
+
+### Speed Limit Distribution
+
+```{r, warning=FALSE}
+ggplot(crash_data, aes(x = advisorySpeed)) + 
+  geom_histogram(binwidth = 5) +
+  theme_minimal() +
+  labs(x = "Speed Limit", y = "Count", title = "Advisory Speed Distribution") + 
+  scale_x_continuous(breaks = seq(0, 100, by = 10))
+```
+
+
+### Boxplot of advisorySpeed vs crashSeverity
+
+```{r, warning=FALSE}
+ggplot(crash_data, aes(x = crashSeverity, y = advisorySpeed, fill = crashSeverity)) + 
+  geom_boxplot(notch=TRUE) +
+  ggtitle("Advisory Speed vs Crash Severity") +
+  xlab("Crash Severity") + 
+  ylab("Advisory Speed") + 
+  scale_fill_manual(values = severity_colors)
+```
+
+```{r, warning=FALSE}
+ggplot(crash_data, aes(x = crashSeverity, y = speedLimit, fill = crashSeverity)) + 
+  geom_boxplot(notch=TRUE) +
+  ggtitle("Advisory Speed vs Crash Severity") +
+  xlab("Crash Severity") + 
+  ylab("Advisory Speed") + 
+  scale_fill_manual(values = severity_colors)
+```
+
+### Number of lanes 
+
+```{r, warning=FALSE}
+ggplot(crash_data, aes(x = NumberOfLanes)) + 
+  geom_bar() +
+  ggtitle("Distribution of Number of Lanes") +
+  xlab("Number of Lanes") + 
+  ylab("Count")+ 
+  scale_x_continuous(breaks = seq(0, 10, by = 1))
+
+```
+
+### Barplot of Fatalities by Vehicle Type
+
+```{r}
+
+# Create the barplot
+ggplot(longer, aes(x = reorder(Type, -Fatalities), y = Fatalities)) + 
+  geom_bar(stat = 'identity') +
+  ggtitle("Fatalities by Vehicle Type") +
+  xlab("Vehicle Type") + 
+  ylab("Fatalities")+ 
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+
+
+### Fatalities by year 
+
+```{r}
+fatalities_by_year <- crash_data %>%
+  group_by(crashYear) %>%
+  summarise(Total_Fatalities = sum(fatalCount, na.rm = TRUE))
+
+ggplot(fatalities_by_year,aes(x = crashYear, y = Total_Fatalities)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  labs(title = "Fatalities by Year", y = "Number of Fatalities")+ 
+  scale_x_continuous(breaks = seq(2000, 2023, by = 2))+ 
+  scale_y_continuous(breaks = seq(0, 500, by = 50))
+
+```
+
+### Fatalities by weather A 
+
+```{r}
+fatalities_by_weather <- crash_data %>%
+  group_by(weatherA) %>%
+  summarise(Total_Fatalities = sum(fatalCount, na.rm = TRUE))
+
+ggplot(fatalities_by_weather, aes(x = reorder(weatherA, -Total_Fatalities), y = Total_Fatalities)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(title = "Fatalities by Weather Condition (A)", y = "Number of Fatalities") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+### Fatalities by weather B 
+```{r}
+fatalities_by_weatherB <- crash_data %>%
+  group_by(weatherB) %>%
+  summarise(Total_Fatalities = sum(fatalCount, na.rm = TRUE))%>%
+  filter(weatherB != 'Null')
+
+ggplot(fatalities_by_weatherB, aes(x = reorder(weatherB, -Total_Fatalities), y = Total_Fatalities)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(title = "Fatalities by Weather Condition (B)", y = "Number of Fatalities") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+
+
+
+
+### Crash Severity
+
+```{r}
+
+ggplot(crash_data, aes(x = crashSeverity, fill = crashSeverity)) +
+  geom_bar() +
+  theme_minimal() +
+  labs(x = "Crash Severity", y = "Count", title = "Crash Severity Counts") + 
+  scale_fill_manual(values = severity_colors)
+
+```
+
+```{r}
+# Create the first plot
+ggplot(crash_severity_by_region, aes(x = region, y = proportion, fill = crashSeverity)) +
+  geom_bar(stat = 'identity') +
+  facet_wrap(~crashSeverity, scales = "free_y") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0)) +
+  labs(title = 'Proportion of Crash Severity by Region',
+       x = 'Region',
+       y = 'Proportion of Crashes') +
+  scale_fill_manual(values = severity_colors)  # Apply custom colors
+```
+
+```{r}
+# Create the second plot
+ggplot(crash_severity_by_region, aes(x = region, y = proportion, fill = crashSeverity)) +
+  geom_bar(stat = 'identity') +
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(
+    title = "Proportion of Crash Severity by Region",
+    x = "Region",
+    y = "Proportion"
+  ) +
+  scale_fill_manual(values = severity_colors) 
+
+```
+
+
+```{r, warning=FALSE}
+
+fatal_summary <- crash_data %>%
+  filter(crashSeverity == "Fatal Crash") %>%
+  group_by(crashYear, region) %>%
+  summarise(total_fatal = sum(fatalCount)) %>%
+  ungroup()
+
+ggplot(fatal_summary, aes(x=crashYear, y=region)) +
+  geom_tile(aes(fill=total_fatal)) +
+  scale_fill_gradient(low="white", high="red") +
+  ggtitle("Heatmap of Total Fatal Crashes by Year and Region") +
+  xlab("Year") +
+  ylab("Region")
+
+
+```
 
 
 
