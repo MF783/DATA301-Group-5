@@ -23,7 +23,6 @@ library(ggplot2)
 library(skimr)
 library(tidyr)
 
-
 ```
 
 
@@ -59,17 +58,11 @@ library(tidyr)
 
 # Explain the definitions of the variables in each table/plot
 # Comment on the main features of each plot
-
-
-
-
-
-
-
-
-
-
 ```
+
+
+
+
 
 \newpage
 
@@ -81,7 +74,7 @@ library(tidyr)
 
 ## Matthew Smaill
 
+\newpage
 
-
-
+# References 
 

@@ -14,9 +14,14 @@ library(dplyr)
 library(ggplot2)
 library(skimr)
 library(tidyr)
-
+options(scipen = 999)
 
 ```
+
+```{r}
+head(summary)
+```
+
 
 ```{r}
 crash_data = read.csv('../Data/crash_data.csv')
@@ -30,8 +35,18 @@ summary
 #### Advisory Speed Distribution
 
 ```{r}
+ggplot(crash_data, aes(x = speedLimit)) + 
+  geom_histogram(binwidth = 5, color = "black") +
+  theme_minimal() +
+  labs(x = "Advisory Speed", y = "Count", title = "Speed Limit Distribution")
+
+```
+
+#### Speed Limit Distribution
+
+```{r}
 ggplot(crash_data, aes(x = advisorySpeed)) + 
-  geom_histogram(binwidth = 5, fill = "blue", color = "black") +
+  geom_histogram(binwidth = 5, color = "black") +
   theme_minimal() +
   labs(x = "Advisory Speed", y = "Count", title = "Advisory Speed Distribution")
 
@@ -42,7 +57,7 @@ ggplot(crash_data, aes(x = advisorySpeed)) +
 
 ```{r}
 ggplot(crash_data, aes(x = crashSeverity)) +
-  geom_bar(fill = "green", color = "black") +
+  geom_bar(color = "black") +
   theme_minimal() +
   labs(x = "Crash Severity", y = "Count", title = "Crash Severity Counts")
 
@@ -53,14 +68,14 @@ ggplot(crash_data, aes(x = crashSeverity)) +
 #### Crash Distribution by region 
 
 ```{r}
-ggplot(crash_data, aes(x=region)) + geom_bar() + ggtitle("Number of Crashes by Region") + coord_flip()
+ggplot(crash_data, aes(x=region)) + geom_bar(color = 'black') + ggtitle("Number of Crashes by Region") + coord_flip()
 
 ```
 
 #### Boxplot of advisorySpeed vs crashSeverity
 ```{r}
 ggplot(crash_data, aes(x = crashSeverity, y = advisorySpeed)) + 
-  geom_boxplot(notch=TRUE) +
+  geom_boxplot(notch=TRUE, fill = 'darkgrey', color = 'black') +
   ggtitle("Advisory Speed vs Crash Severity") +
   xlab("Crash Severity") + 
   ylab("Advisory Speed")
@@ -68,6 +83,7 @@ ggplot(crash_data, aes(x = crashSeverity, y = advisorySpeed)) +
 
 #### Number of lanes 
 ```{r}
+
 ggplot(crash_data, aes(x = NumberOfLanes)) + 
   geom_bar() +
   ggtitle("Distribution of Number of Lanes") +
@@ -93,13 +109,23 @@ fatalities_by_vehicle <- crash_data %>%
     Van_Utility = sum(vanOrUtility * fatalCount, na.rm = TRUE)
   )
 
-fatalities_by_vehicle
 
-fatalities <- as.numeric(fatalities_by_vehicle[1,])
-names(fatalities) <- colnames(fatalities_by_vehicle)
+longer <- fatalities_by_vehicle %>% 
+  pivot_longer(
+    everything(),
+    names_to = 'Type',
+    values_to = 'Fatalities'
+  )
+
+
+
 
 # Create the barplot
-barplot(fatalities, main="Number of Fatalities per Vehicle", xlab="Vehicle", ylab="Number of Fatalities", col="skyblue", las=2)
+ggplot(longer, aes( x= Type)) + 
+  geom_bar() +
+  ggtitle("Distribution of Number of Lanes") +
+  xlab("Number of Lanes") + 
+  ylab("Count")
 ```
 
 
