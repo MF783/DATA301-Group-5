@@ -139,18 +139,30 @@ missing_value_table <- data.frame(
 
 missing_value_table
 ```
+
+This table shows the count and percentage of missing values for each variable in the dataset with more than 10% of the data missing.
+
+**Commentary:** 
+The table provides insights into the completeness of the dataset. Columns with higher percentages of missing values may require further investigation or data imputation strategies.
+
+
 ## Plots 
 
 ### Advisory Speed Distribution
+
+
 
 ```{r, warning=FALSE}
 ggplot(crash_data, aes(x = speedLimit)) + 
   geom_histogram(binwidth = 5) +
   theme_minimal() +
-  labs(x = "Advisory Speed", y = "Count", title = "Speed Limit Distribution")+ 
+  labs(x = "Speed Limit", y = "Count", title = "Speed Limit Distribution")+ 
   scale_x_continuous(breaks = seq(0, 100, by = 10))
 
 ```
+
+**Commentary**: 
+The histogram shows the distribution of advisory speeds in the dataset. Most of the advisory speeds are clustered around 50-60 km/h, which is typical for urban and suburban areas. From advisory speeds 60 through to 100, more fatal crashes seem to occur.
 
 ### Speed Limit Distribution
 
@@ -162,6 +174,9 @@ ggplot(crash_data, aes(x = advisorySpeed)) +
   scale_x_continuous(breaks = seq(0, 100, by = 10))
 ```
 
+**Commentary**: 
+The histogram for speed limits shows a similar trend to the advisory speed, where most of the crashes occur around the 50-60 km/h range.
+
 
 ### Boxplot of advisorySpeed vs crashSeverity
 
@@ -171,17 +186,26 @@ ggplot(crash_data, aes(x = crashSeverity, y = advisorySpeed, fill = crashSeverit
   ggtitle("Advisory Speed vs Crash Severity") +
   xlab("Crash Severity") + 
   ylab("Advisory Speed") + 
-  scale_fill_manual(values = severity_colors)
+  scale_fill_manual(values = severity_colors)+ 
+  scale_y_continuous(breaks = seq(0, 110, by = 10))
+  
 ```
+
+**Commentary**: 
+The boxplot between advisory speed and crash severity shows that the advisory speed tends to increase slightly with the severity of the crash. The notches in the fatal crash boxplot suggests that there is a statistically significant difference between the medians of Non-injury, minor and serious crashes with fatal crashes. This plot may imply that higher advisory speeds are associated with more severe crashes, although correlation does not imply causation.
+
 
 ```{r, warning=FALSE}
 ggplot(crash_data, aes(x = crashSeverity, y = speedLimit, fill = crashSeverity)) + 
   geom_boxplot(notch=TRUE) +
   ggtitle("Advisory Speed vs Crash Severity") +
-  xlab("Crash Severity") + 
+  xlab("Speed Limit") + 
   ylab("Advisory Speed") + 
-  scale_fill_manual(values = severity_colors)
+  scale_fill_manual(values = severity_colors)+ 
+  scale_y_continuous(breaks = seq(0, 110, by = 10))
 ```
+**Commentary**: 
+The boxplot between Speed Limit and crash severity shows some of the same relationship as the advisory speed graph above. 
 
 ### Number of lanes 
 
@@ -194,6 +218,10 @@ ggplot(crash_data, aes(x = NumberOfLanes)) +
   scale_x_continuous(breaks = seq(0, 10, by = 1))
 
 ```
+
+**Commentary:**
+The bar plot shows that most crashes occur on roads with 1 or 2 lanes. 
+
 
 ### Barplot of Fatalities by Vehicle Type
 
@@ -208,7 +236,8 @@ ggplot(longer, aes(x = reorder(Type, -Fatalities), y = Fatalities)) +
   theme(axis.text.x = element_text(angle = 90))
 ```
 
-
+**Commentary:** 
+The bar plot shows the number of fatalities by vehicle type. Cars and station wagons have the highest number of fatalities, though this is likely simply because they are more common on the roads.
 
 ### Fatalities by year 
 
@@ -227,6 +256,9 @@ ggplot(fatalities_by_year,aes(x = crashYear, y = Total_Fatalities)) +
 
 ```
 
+**Commentary:**
+The line plot shows a clear trend in the number of fatalities. The period between 2000 and 2013 showes a clear downward trend of the number of fatalities. The period between 2013 and 2022 (Excluding 2023 as there is not data for the whole year) there is a clear upward trend in number of fatalities. This could be due to numerious things, population growth, increased reporting or other factors. 
+
 ### Fatalities by weather A 
 
 ```{r}
@@ -241,6 +273,8 @@ ggplot(fatalities_by_weather, aes(x = reorder(weatherA, -Total_Fatalities), y = 
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+**Commentary:**
+The bar plot shows the number of fatalities categorized by primary weather conditions. 
 
 ### Fatalities by weather B 
 ```{r}
@@ -256,7 +290,8 @@ ggplot(fatalities_by_weatherB, aes(x = reorder(weatherB, -Total_Fatalities), y =
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-
+**Commentary:**
+Similar to weatherA, this bar plot shows fatalities by secondary weather conditions.
 
 
 
@@ -273,6 +308,10 @@ ggplot(crash_data, aes(x = crashSeverity, fill = crashSeverity)) +
 
 ```
 
+**Commentary:**
+The bar plot gives an overview of the crash severity distribution in the dataset. Most crashes are non-injury or minor, but there's a significant number of serious and fatal crashes as well.
+
+
 ```{r}
 # Create the first plot
 ggplot(crash_severity_by_region, aes(x = region, y = proportion, fill = crashSeverity)) +
@@ -284,6 +323,10 @@ ggplot(crash_severity_by_region, aes(x = region, y = proportion, fill = crashSev
        y = 'Proportion of Crashes') +
   scale_fill_manual(values = severity_colors)  # Apply custom colors
 ```
+
+**Commentary:**
+The bar plot shows the regional distribution of proportion of crashes at each crash severity. This can give insights into which regions have a higher proportion of more severe crashes.
+
 
 ```{r}
 # Create the second plot
@@ -298,6 +341,9 @@ ggplot(crash_severity_by_region, aes(x = region, y = proportion, fill = crashSev
   scale_fill_manual(values = severity_colors) 
 
 ```
+
+**Commentary:**
+The stacked bar plot shows the same regional distribution of the proportion of crashes at each severity as above. The stacked nature of the bars allows for a different view of the data, providing an easier way to compare regions with one plot.
 
 
 ```{r, warning=FALSE}
@@ -318,7 +364,8 @@ ggplot(fatal_summary, aes(x=crashYear, y=region)) +
 
 ```
 
-
+**Commentary:**
+The heatmap shows the distribution of total fatal crashes by year and region. Darker colors represent higher numbers of fatal crashes. 
 
 
 \newpage
