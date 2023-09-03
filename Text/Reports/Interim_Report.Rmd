@@ -151,7 +151,7 @@ summary_table <- data.frame(
 # Displaying the summary table
 pander(summary_table)
 ```
-This table shows the count of Instances, Features, Missing values, Numerical and Categorical features within the CAS Dataset.
+This table shows the count of Instances, Features, Missing values, Numerical and Categorical features within the CAS Dataset. Please note, these values are different than those reported in the Background section, as it is likely that some variables will need ot be re-encoded at the data cleaning stage of the analysis.
 
 ```{r}
 # Create a table showing the count and percentage of missing values for each variable
@@ -184,7 +184,7 @@ This table shows the count and percentage of missing values for each variable in
 ggplot(crash_data, aes(x = speedLimit)) + 
   geom_histogram(binwidth = 5) +
   theme_minimal() +
-  labs(x = "Speed Limit", y = "Count", title = "Speed Limit Distribution")+ 
+  labs(x = "Speed Limit (Km/h)", y = "Count", title = "Speed Limit Distribution")+ 
   scale_x_continuous(breaks = seq(0, 100, by = 10))
 
 ```
@@ -197,7 +197,7 @@ ggplot(crash_data, aes(x = speedLimit)) +
 ggplot(crash_data, aes(x = advisorySpeed)) + 
   geom_histogram(binwidth = 5) +
   theme_minimal() +
-  labs(x = "Speed Limit", y = "Count", title = "Advisory Speed Distribution") + 
+  labs(x = "Advisory Speed (Km/h)", y = "Count", title = "Advisory Speed Distribution") + 
   scale_x_continuous(breaks = seq(0, 100, by = 10))
 ```
 
@@ -212,7 +212,7 @@ ggplot(crash_data, aes(x = crashSeverity, y = advisorySpeed, fill = crashSeverit
   geom_boxplot(notch=TRUE) +
   ggtitle("Advisory Speed vs Crash Severity") +
   xlab("Crash Severity") + 
-  ylab("Advisory Speed") + 
+  ylab("Advisory Speed (Km/h)") + 
   scale_fill_manual(values = severity_colors)+ 
   scale_y_continuous(breaks = seq(0, 110, by = 10))
   
@@ -226,7 +226,7 @@ ggplot(crash_data, aes(x = crashSeverity, y = speedLimit, fill = crashSeverity))
   geom_boxplot(notch=TRUE) +
   ggtitle("Advisory Speed vs Crash Severity") +
   xlab("Speed Limit") + 
-  ylab("Advisory Speed") + 
+  ylab("Advisory Speed (Km/h)") + 
   scale_fill_manual(values = severity_colors)+ 
   scale_y_continuous(breaks = seq(0, 110, by = 10))
 
@@ -256,7 +256,7 @@ ggplot(longer, aes(x = reorder(Type, -Fatalities), y = Fatalities)) +
   geom_bar(stat = 'identity') +
   ggtitle("Fatalities by Vehicle Type") +
   xlab("Vehicle Type") + 
-  ylab("Fatalities")+ 
+  ylab("Number of Fatalities")+ 
   theme(axis.text.x = element_text(angle = 90))
 ```
 
@@ -274,7 +274,7 @@ ggplot(fatalities_by_year,aes(x = crashYear, y = Total_Fatalities)) +
   geom_line() +
   geom_point() +
   theme_minimal() +
-  labs(title = "Fatalities by Year", y = "Number of Fatalities")+ 
+  labs(title = "Fatalities by Year", y = "Number of Fatalities", x='Year of Crash')+ 
   scale_x_continuous(breaks = seq(2000, 2023, by = 2))+ 
   scale_y_continuous(breaks = seq(0, 500, by = 50))
 
@@ -292,7 +292,7 @@ fatalities_by_weather <- crash_data %>%
 ggplot(fatalities_by_weather, aes(x = reorder(weatherA, -Total_Fatalities), y = Total_Fatalities)) +
   geom_bar(stat = "identity") +
   theme_minimal() +
-  labs(title = "Fatalities by Weather Condition (A)", y = "Number of Fatalities") +
+  labs(title = "Fatalities by Weather Condition (A)", y = "Number of Fatalities", x='Weather Condition A') +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
@@ -309,7 +309,7 @@ fatalities_by_weatherB <- crash_data %>%
 ggplot(fatalities_by_weatherB, aes(x = reorder(weatherB, -Total_Fatalities), y = Total_Fatalities)) +
   geom_bar(stat = "identity") +
   theme_minimal() +
-  labs(title = "Fatalities by Weather Condition (B)", y = "Number of Fatalities") +
+  labs(title = "Fatalities by Weather Condition (B)", y = "Number of Fatalities", x='Weather Condition B' ) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
