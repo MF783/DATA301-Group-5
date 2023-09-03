@@ -1,30 +1,39 @@
 ---
 title: "**DATA303 Interim Report - Group 5**"
 author:
-  - 'Michael Fry 300570669'
-  - 'Fletcher Smith '
-  - 'Matthew Smaill '
+- 'Michael Fry 300570669'
+- 'Fletcher Smith '
+- 'Matthew Smaill '
 date: "`r format(Sys.time(), '%A, %d %B')`"
-output: pdf_document
-toc: true
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+toc: yes
 bibliography: Interim_Report.bib
+header-includes:
+ \usepackage{float}
+ \floatplacement{figure}{H}
 ---
 
 \newpage
 
 ```{r setup, include=FALSE, warning=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-knitr::opts_chunk$set(warning=FALSE)
-knitr::opts_chunk$set(fig.width=6)
-knitr::opts_chunk$set(fig.height=4)
-#install.packages(c('dplyr','ggplot2','skimr','ggcorrplot','tidyr', 'pander','DataExplorer')))
+knitr::opts_chunk$set(warning = FALSE,
+                      message = FALSE,
+                      echo = FALSE, 
+                      fig.width=8, 
+                      fig.height=4) 
+
+# To install all third party packages at once
+#install.packages(c('dplyr','ggplot2','ggcorrplot','tidyr', 'pander', 'flextable')))
+
 library(ggcorrplot)
 library(dplyr)
 library(ggplot2)
-library(skimr)
 library(tidyr)
 library(pander)
-library(DataExplorer)
+library(flextable)
 options(scipen = 999)
 
 crash_data = read.csv('../../Data/crash_data.csv')
@@ -74,7 +83,7 @@ In conclusion, the New Zealand Crash Analysis System (CAS) dataset serves as a v
 # Exploratory Data Analytics
 
 
-```{r, warning=FALSE}
+```{r}
 
 # Summarize the data
 fatalities_by_vehicle <- crash_data %>%
@@ -125,7 +134,26 @@ severity_colors <- c("Non-Injury Crash" = "#8DB3AD", "Minor Crash" = "#F5D7B1", 
 
 ## Summary Tables 
 
-```{r, warning=FALSE}
+```{r}
+summary_table <- data.frame(
+  Aspect = c("Number of Instances", 
+             "Number of Features", 
+             "Number of Missing Values", 
+             "Number of Numeric Features", 
+             "Number of Categorical Features"),
+  Value = c(nrow(crash_data), 
+            ncol(crash_data), 
+            sum(is.na(crash_data)), 
+            length(select_if(crash_data, is.numeric)),
+            (ncol(crash_data) - length(select_if(crash_data, is.numeric))))
+)
+
+# Displaying the summary table
+pander(summary_table)
+```
+This table shows the count of Instances, Features, Missing values, Numerical and Categorical features within the CAS Dataset.
+
+```{r}
 # Create a table showing the count and percentage of missing values for each variable
 missing_value_table <- data.frame(
   Count = sapply(crash_data, function(x) sum(is.na(x))),
@@ -137,13 +165,13 @@ missing_value_table <- data.frame(
 
 
 
-missing_value_table
+pander(missing_value_table)
 ```
 
-This table shows the count and percentage of missing values for each variable in the dataset with more than 10% of the data missing.
+This table shows the count and percentage of missing values for each variable in the dataset with more than 10% of the data missing. The table provides insights into the completeness of the dataset. Columns with higher percentages of missing values may require further investigation or data imputation strategies.
 
-**Commentary:** 
-The table provides insights into the completeness of the dataset. Columns with higher percentages of missing values may require further investigation or data imputation strategies.
+\newpage
+
 
 
 ## Plots 
@@ -152,7 +180,7 @@ The table provides insights into the completeness of the dataset. Columns with h
 
 
 
-```{r, warning=FALSE}
+```{r,fig.cap = 'Histogram for distribution of advisory speeds in the dataset. Most of the advisory speeds are clustered around 50-60 km/h, which is typical for urban andsuburban areas. From advisory speeds 60 through to 100, more fatal crashes seem to occur.'}
 ggplot(crash_data, aes(x = speedLimit)) + 
   geom_histogram(binwidth = 5) +
   theme_minimal() +
@@ -161,12 +189,11 @@ ggplot(crash_data, aes(x = speedLimit)) +
 
 ```
 
-**Commentary**: 
-The histogram shows the distribution of advisory speeds in the dataset. Most of the advisory speeds are clustered around 50-60 km/h, which is typical for urban and suburban areas. From advisory speeds 60 through to 100, more fatal crashes seem to occur.
+
 
 ### Speed Limit Distribution
 
-```{r, warning=FALSE}
+```{r,fig.cap ='The histogram for speed limits shows a similar trend to the advisory speed, where most of the crashes occur around the 50-60 km/h range.'}
 ggplot(crash_data, aes(x = advisorySpeed)) + 
   geom_histogram(binwidth = 5) +
   theme_minimal() +
@@ -174,13 +201,13 @@ ggplot(crash_data, aes(x = advisorySpeed)) +
   scale_x_continuous(breaks = seq(0, 100, by = 10))
 ```
 
-**Commentary**: 
-The histogram for speed limits shows a similar trend to the advisory speed, where most of the crashes occur around the 50-60 km/h range.
+
+
 
 
 ### Boxplot of advisorySpeed vs crashSeverity
 
-```{r, warning=FALSE}
+```{r ,fig.cap = 'The boxplot between advisory speed and crash severity shows that the advisory speed tends to increase slightly with the severity of the crash. The notches in the fatal crash boxplot suggests that there is a statistically significant difference between the medians of Non-injury, minor and serious crashes with fatal crashes. This plot may imply that higher advisory speeds are associated with more severe crashes, although correlation does not imply causation.'}
 ggplot(crash_data, aes(x = crashSeverity, y = advisorySpeed, fill = crashSeverity)) + 
   geom_boxplot(notch=TRUE) +
   ggtitle("Advisory Speed vs Crash Severity") +
@@ -191,11 +218,10 @@ ggplot(crash_data, aes(x = crashSeverity, y = advisorySpeed, fill = crashSeverit
   
 ```
 
-**Commentary**: 
-The boxplot between advisory speed and crash severity shows that the advisory speed tends to increase slightly with the severity of the crash. The notches in the fatal crash boxplot suggests that there is a statistically significant difference between the medians of Non-injury, minor and serious crashes with fatal crashes. This plot may imply that higher advisory speeds are associated with more severe crashes, although correlation does not imply causation.
 
+### Boxplot of speedLimit vs crashSeverity
 
-```{r, warning=FALSE}
+```{r, fig.cap ='The boxplot between Speed Limit and crash severity shows some of the same relationship as the advisory speed graph above.'}
 ggplot(crash_data, aes(x = crashSeverity, y = speedLimit, fill = crashSeverity)) + 
   geom_boxplot(notch=TRUE) +
   ggtitle("Advisory Speed vs Crash Severity") +
@@ -203,13 +229,12 @@ ggplot(crash_data, aes(x = crashSeverity, y = speedLimit, fill = crashSeverity))
   ylab("Advisory Speed") + 
   scale_fill_manual(values = severity_colors)+ 
   scale_y_continuous(breaks = seq(0, 110, by = 10))
+
 ```
-**Commentary**: 
-The boxplot between Speed Limit and crash severity shows some of the same relationship as the advisory speed graph above. 
 
 ### Number of lanes 
 
-```{r, warning=FALSE}
+```{r, fig.cap ='The bar plot shows that most crashes occur on roads with 1 or 2 lanes.' }
 ggplot(crash_data, aes(x = NumberOfLanes)) + 
   geom_bar() +
   ggtitle("Distribution of Number of Lanes") +
@@ -219,13 +244,12 @@ ggplot(crash_data, aes(x = NumberOfLanes)) +
 
 ```
 
-**Commentary:**
-The bar plot shows that most crashes occur on roads with 1 or 2 lanes. 
+
 
 
 ### Barplot of Fatalities by Vehicle Type
 
-```{r}
+```{r, fig.cap ='The bar plot shows the number of fatalities by vehicle type. Cars and station wagons have the highest number of fatalities, though this is likely simply because they are more common on the roads.'}
 
 # Create the barplot
 ggplot(longer, aes(x = reorder(Type, -Fatalities), y = Fatalities)) + 
@@ -236,12 +260,12 @@ ggplot(longer, aes(x = reorder(Type, -Fatalities), y = Fatalities)) +
   theme(axis.text.x = element_text(angle = 90))
 ```
 
-**Commentary:** 
-The bar plot shows the number of fatalities by vehicle type. Cars and station wagons have the highest number of fatalities, though this is likely simply because they are more common on the roads.
+
+
 
 ### Fatalities by year 
 
-```{r}
+```{r, fig.cap ='The line plot shows a clear trend in the number of fatalities. The period between 2000 and 2013 showes a clear downward trend of the number of fatalities. The period between 2013 and 2022 (Excluding 2023 as there is not data for the whole year) there is a clear upward trend in number of fatalities. This could be due to numerious things, population growth, increased reporting or other factors.'}
 fatalities_by_year <- crash_data %>%
   group_by(crashYear) %>%
   summarise(Total_Fatalities = sum(fatalCount, na.rm = TRUE))
@@ -256,12 +280,11 @@ ggplot(fatalities_by_year,aes(x = crashYear, y = Total_Fatalities)) +
 
 ```
 
-**Commentary:**
-The line plot shows a clear trend in the number of fatalities. The period between 2000 and 2013 showes a clear downward trend of the number of fatalities. The period between 2013 and 2022 (Excluding 2023 as there is not data for the whole year) there is a clear upward trend in number of fatalities. This could be due to numerious things, population growth, increased reporting or other factors. 
+
 
 ### Fatalities by weather A 
 
-```{r}
+```{r, fig.cap = 'The bar plot shows the number of fatalities categorized by primary weather conditions.'}
 fatalities_by_weather <- crash_data %>%
   group_by(weatherA) %>%
   summarise(Total_Fatalities = sum(fatalCount, na.rm = TRUE))
@@ -273,11 +296,11 @@ ggplot(fatalities_by_weather, aes(x = reorder(weatherA, -Total_Fatalities), y = 
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-**Commentary:**
-The bar plot shows the number of fatalities categorized by primary weather conditions. 
+
 
 ### Fatalities by weather B 
-```{r}
+
+```{r, fig.cap ='Similar to weatherA, this bar plot shows fatalities by secondary weather conditions.'}
 fatalities_by_weatherB <- crash_data %>%
   group_by(weatherB) %>%
   summarise(Total_Fatalities = sum(fatalCount, na.rm = TRUE))%>%
@@ -290,15 +313,15 @@ ggplot(fatalities_by_weatherB, aes(x = reorder(weatherB, -Total_Fatalities), y =
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-**Commentary:**
-Similar to weatherA, this bar plot shows fatalities by secondary weather conditions.
+
+
 
 
 
 
 ### Crash Severity
 
-```{r}
+```{r, fig.cap = 'The bar plot gives an overview of the crash severity distribution in the dataset. Most crashes are non-injury or minor, but there is a significant number of serious and fatal crashes as well.'}
 
 ggplot(crash_data, aes(x = crashSeverity, fill = crashSeverity)) +
   geom_bar() +
@@ -308,11 +331,10 @@ ggplot(crash_data, aes(x = crashSeverity, fill = crashSeverity)) +
 
 ```
 
-**Commentary:**
-The bar plot gives an overview of the crash severity distribution in the dataset. Most crashes are non-injury or minor, but there's a significant number of serious and fatal crashes as well.
 
+### Crash Severity by Region 
 
-```{r}
+```{r,fig.cap ='The bar plot shows the regional distribution of proportion of crashes at each crash severity. This can give insights into which regions have a higher proportion of more severe crashes.'}
 # Create the first plot
 ggplot(crash_severity_by_region, aes(x = region, y = proportion, fill = crashSeverity)) +
   geom_bar(stat = 'identity') +
@@ -324,11 +346,11 @@ ggplot(crash_severity_by_region, aes(x = region, y = proportion, fill = crashSev
   scale_fill_manual(values = severity_colors)  # Apply custom colors
 ```
 
-**Commentary:**
-The bar plot shows the regional distribution of proportion of crashes at each crash severity. This can give insights into which regions have a higher proportion of more severe crashes.
 
 
-```{r}
+### Crash Severity by Region - Stacked
+
+```{r, fig.cap ='The stacked bar plot shows the same regional distribution of the proportion of crashes at each severity as above. The stacked nature of the bars allows for a different view of the data, providing an easier way to compare regions with one plot.'}
 # Create the second plot
 ggplot(crash_severity_by_region, aes(x = region, y = proportion, fill = crashSeverity)) +
   geom_bar(stat = 'identity') +
@@ -342,11 +364,11 @@ ggplot(crash_severity_by_region, aes(x = region, y = proportion, fill = crashSev
 
 ```
 
-**Commentary:**
-The stacked bar plot shows the same regional distribution of the proportion of crashes at each severity as above. The stacked nature of the bars allows for a different view of the data, providing an easier way to compare regions with one plot.
 
 
-```{r, warning=FALSE}
+### Heatmap of Fatal Crashes by year and region.
+
+```{r, fig.cap ='The heatmap shows the distribution of total fatal crashes by year and region. Darker colors represent higher numbers of fatal crashes.'}
 
 fatal_summary <- crash_data %>%
   filter(crashSeverity == "Fatal Crash") %>%
@@ -364,15 +386,29 @@ ggplot(fatal_summary, aes(x=crashYear, y=region)) +
 
 ```
 
-**Commentary:**
-The heatmap shows the distribution of total fatal crashes by year and region. Darker colors represent higher numbers of fatal crashes. 
+
+### Things to note going forward
+
+There are a significant number of variables with missing data. Each will need to be handled differently. Significant pre-processing will be needed before the fitting of any models. 
+
+It is likely, due to the significant number of features present in the dataset, that significant feature selection will be required to reduce the dimensionality of the dataset to a usable level. 
+
 
 
 \newpage
 
+
 # Individual Contributions
 
 ## Michael Fry 
+
+- Created and formatted the interm report document 
+  - Knittr options, layout, formatting etc. 
+- Exploratory Data Analytics Section
+  - Summary
+  - Grouping etc
+  - Plots 
+  - Captions
 
 ## Fletcher Smith 
 
