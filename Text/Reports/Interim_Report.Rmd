@@ -36,6 +36,7 @@ library(pander)
 library(flextable)
 options(scipen = 999)
 
+# Ensure that the dataset is stored in this directory, it is too large to commit to Github so needs to be downloaded and stored locally in this directory.
 crash_data = read.csv('../../Data/crash_data.csv')
 
 ```
@@ -71,11 +72,35 @@ In conclusion, the New Zealand Crash Analysis System (CAS) dataset serves as a v
 
 # Ethics and Privacy 
 
-## Ethics 
+Privacy and ethical considerations are paramount for data scientists when dealing with, and modelling data. Especially sensitive data. This section of the report details the privacy and ethical concerns that must be addressed when dealing with the crash (CAS) dataset to answer the question: Can we use statistical analysis techniques to find the relational effects that key factors have on leading to a major crash using the CAS dataset? It also discusses what steps could be taken to ensure the project data and results are secure. 
+Privacy considerations refers to the protection of individuals' personal information and sensitive data. It involves ensuring that data is collected, stored, processed, and shared in a way that respects individuals' rights and maintains confidentiality. Ethical considerations on the other hand, is all about how the data is being used, especially when it comes to potential biases, fairness, and social implications.
+It is important to note; the CAS dataset is publicly available and provided by a government entity. Therefore, the following discussion includes BOTH methods that the NZTA has done to try and privatise the data, AND also the privacy and ethical considerations that still need to be taken  into account within this project. 
+
 
 ## Privacy 
 
-## Security 
+Privacy considerations are of utmost importance when dealing with any dataset, especially one as sensitive as the Crash Analysis System (CAS). Personal identifiers, including the gender and age of the driver, and license plate numbers, have been deliberately removed from the dataset by the NZTA. These removals are critical steps taken to protect individual privacy. However, even though these direct identifiers have been removed, this alone may not suffice to guarantee privacy.
+The dataset still contains information about location and the financial year in which the crash occurred. While not as overt as personal identifiers, this information can still be used, in combination with other factors, to potentially identify individuals involved in crashes. Location data, in particular, can provide insights into the vicinity of the crash, which may be sensitive information.
+It is import for us data scientists to consider this, as it could impact peoples lives, as our analysis hasn’t come with the direct permission with the participants for the use of their data (indirectly has been through the NZTA).
+
+## Ethics 
+
+Ethical considerations encompass a broad spectrum of concerns that go beyond mere data protection, extending to issues of fairness, bias mitigation, and the broader social implications of data analysis. Given that the CAS dataset is publicly accessible and provided by a government entity, the New Zealand Transport Agency (NZTA), ethical scrutiny must encompass an evaluation of the effectiveness of the NZTA's data privatization efforts. It is imperative to determine whether these efforts are robust enough to adequately safeguard individuals' privacy and whether the dataset aligns with ethical data sharing standards.
+Furthermore, despite the public availability of the CAS dataset, ethical concerns emerge regarding the consent of individuals whose data is included. Ensuring that the data used in research has been obtained and shared in accordance with informed consent principles is a cornerstone of ethical data analysis, particularly when dealing with sensitive crash data. This might be the case for individuals when they consent for the use of this data by NZTA, however, we have not asked for consent directly by any crash participants. Therefore, we need to do our crash analysis with respect of the people whose data we are using. 
+
+Analyzing crash data carries significant societal implications, potentially influencing policy decisions and public perceptions. Ethical considerations require data scientists to approach our analysis with a commitment to minimizing harm and promoting societal well-being. We should carefully consider how their findings may impact communities and advocate for responsible data use, recognizing the sensitivity of the information involved.
+
+
+
+## Steps to Ensure Privacy and Ethical Compliance:
+
+1.	Data Anonymization: The first step involves a rigorous review of the dataset to eliminate or anonymize any remaining personally identifiable information. This process aims to further protect individuals' privacy by removing the possibility of identification.
+
+2.	Adding Noise: To bolster privacy protection, consider adding noise to sensitive attributes like crash dates. This technique obscures specific details about individuals while still allowing meaningful analysis, thereby striking a balance between utility and privacy. If the location variables, where to be used in our analysis, then we could move the area of crash within a 10km radius, which wouldn’t effect the overall results of our findings.  
+
+3.	Ethical Review: Conduct a comprehensive ethical review of the research project. This review should identify potential biases and ethical dilemmas, requiring consultation with experts in ethics and data privacy to ensure responsible research.
+
+4.	Fairness Assessment: Scrutinize the dataset for fairness issues, such as disparities in crash reporting or data collection. Mitigate any identified biases during data analysis and reporting to ensure fairness in the research.
 
 
 \newpage
