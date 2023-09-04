@@ -201,7 +201,7 @@ This table shows the count and percentage of missing values for each variable in
 
 ## Plots 
 
-### Advisory Speed Distribution
+### Speed Limit Distribution
 
 
 
@@ -213,10 +213,10 @@ ggplot(crash_data, aes(x = speedLimit)) +
   scale_x_continuous(breaks = seq(0, 100, by = 10))
 
 ```
+From the graph above; The speed limit distribution shows the distribution shows the number of crashes at different speed limits. (Note, this is not the speed of the crash, just the speed limit at the location of the crash). The most common speed limit that crashes occur at is 50km/h, followed then by 100km/h. This isn't very surprising. Firstly, the default urban speed limit 50km/h, with a high volume of traffic driving under this speed limit across the country each day. Further, this would also included other types of crashes, such as bikes and busses. This then makes sense that it experiences the most crashes. Majority highways and open roads in New Zealand have a speed limit of 100, and if cars where going in excess of 100km/h then these crashes are also included within the 100km/h range.
 
 
-
-### Speed Limit Distribution
+### Advisory Speed Distribution
 
 ```{r,fig.cap ='The histogram for speed limits shows a similar trend to the advisory speed, where most of the crashes occur around the 50-60 km/h range.'}
 ggplot(crash_data, aes(x = advisorySpeed)) + 
@@ -249,9 +249,9 @@ ggplot(crash_data, aes(x = crashSeverity, y = advisorySpeed, fill = crashSeverit
 ```{r, fig.cap ='The boxplot between Speed Limit and crash severity shows some of the same relationship as the advisory speed graph above.'}
 ggplot(crash_data, aes(x = crashSeverity, y = speedLimit, fill = crashSeverity)) + 
   geom_boxplot(notch=TRUE) +
-  ggtitle("Advisory Speed vs Crash Severity") +
-  xlab("Speed Limit") + 
-  ylab("Advisory Speed (Km/h)") + 
+  ggtitle("Speed limit vs Crash Severity") +
+  xlab("Crash Severity") + 
+  ylab("Speed Limit (Km/h)") + 
   scale_fill_manual(values = severity_colors)+ 
   scale_y_continuous(breaks = seq(0, 110, by = 10))
 
@@ -268,7 +268,7 @@ ggplot(crash_data, aes(x = NumberOfLanes)) +
   scale_x_continuous(breaks = seq(0, 10, by = 1))
 
 ```
-
+From the graph above; The number of crashes on 2 lanes roads is the highest. This makes seance since the majority of crashes happen in 50km/h zones witch are normally in towns and cities. 
 
 
 
@@ -284,7 +284,8 @@ ggplot(longer, aes(x = reorder(Type, -Fatalities), y = Fatalities)) +
   ylab("Number of Fatalities")+ 
   theme(axis.text.x = element_text(angle = 90))
 ```
-
+From the graph above; it's clear that cars are the most common vehicle to be involved in an fatal crash compared to all other vehicle types. this is expected sine light passenger vehicles accounted for 76.4% of the vehicles on the road. One interesting observation is the fact that there are more trucks involved in fatal crashes than motorcycles when there are more motorcycles on the road. This could be due to trucks being driven more often and they can cause a lot more damage due to their size/ weaight compared to motorcycles. 
+https://www.ehinz.ac.nz/assets/Factsheets/Released_2021/Number-of-Vehicles.pdf
 
 
 
@@ -355,7 +356,7 @@ ggplot(crash_data, aes(x = crashSeverity, fill = crashSeverity)) +
   scale_fill_manual(values = severity_colors)
 
 ```
-
+From the graph above, we can see that most crashes don't result in any injury. this is probably due tot he fact that most crashes occur when the speed limit is 50km/h or below and this is a relatively low speed. another reason for the high number of
 
 ### Crash Severity by Region 
 
@@ -370,7 +371,7 @@ ggplot(crash_severity_by_region, aes(x = region, y = proportion, fill = crashSev
        y = 'Proportion of Crashes') +
   scale_fill_manual(values = severity_colors)  # Apply custom colors
 ```
-
+The proportions between non-injury, minor, serious  and fatal crashes across all regions are relatively similar, with slight variations between them. Only a small proportion of crashes are fatal (around 2%, +-0.05%), compared to Non-injury crashes (around 60%).However, as the crash severity gets worse, there is slightly more variation in the proportion of each crash type between regions.  Even though some regions have slightly more server crashes than other regions (such as West coast and Northland); It is clear that for our analysis, there is no one particular region that has an alarmingly higher proportion of serious/fatal crashes than other regions.
 
 
 ### Crash Severity by Region - Stacked
@@ -388,7 +389,7 @@ ggplot(crash_severity_by_region, aes(x = region, y = proportion, fill = crashSev
   scale_fill_manual(values = severity_colors) 
 
 ```
-
+This shows a similar story as the graph above, that the non-injury crashes are the highest proportion of crashes that occur, with the proportions of crashes decreasing as the severity gets worse.
 
 
 ### Heatmap of Fatal Crashes by year and region.
@@ -410,6 +411,7 @@ ggplot(fatal_summary, aes(x=crashYear, y=region)) +
 
 
 ```
+From the graph above; The waikato region has had continual high levels of fatal crashs. This peaked in the early 2000. Based on the Waikato Regional Road Safety Report in From the graph above; The Waikato region has had continual high levels of fatal crash's. This peaked in the early 2000. Based on the Waikato Regional Road Safety Report 2000, "The four main contributing factors in all rural crashes in the Region were poor observation, excess speed, road factors and alcohol". This is useful for our anaysis, as it shows four potential causes of a fatal crash. The Nelson Region and the Marlborough on the other hand, had very low levels of fatal crashes. It is interesting to see, that the level of fatal crashes within each region does stay relatively the same overtime, with only some small changes within each region overtime. , "The four main contributing factors in all rural crashes in the Region were poor observation, excess speed, road factors and alcohol". This is useful for our anaysis, as it shows four potential causes of a fatal crash. The Nelson Region and the Marlborough on the other hand, had very low levels of fatal crashes. It is interesting to see, that the level of fatal crashes within each region does stay relatively the same overtime, with only some small changes within each region overtime.
 
 
 ### Things to note going forward
