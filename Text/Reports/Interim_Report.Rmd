@@ -242,6 +242,7 @@ ggplot(crash_data, aes(x = crashSeverity, y = advisorySpeed, fill = crashSeverit
   scale_y_continuous(breaks = seq(0, 110, by = 10))
   
 ```
+This plot shows the crash severity against advisory speed. There is a slight trend as the advisory speed increases, the crash severity increases too. It's also interesting to note the median advisory speed for non-injury, minor, and serious crashes are all around 55km/h. 
 
 
 ### Boxplot of speedLimit vs crashSeverity
@@ -256,6 +257,8 @@ ggplot(crash_data, aes(x = crashSeverity, y = speedLimit, fill = crashSeverity))
   scale_y_continuous(breaks = seq(0, 110, by = 10))
 
 ```
+This plot shows the crash severity against speed limit. just like in the graph above, there is also a slight trend between the speed limit and crash severity.
+
 
 ### Number of lanes 
 
@@ -305,6 +308,7 @@ ggplot(fatalities_by_year,aes(x = crashYear, y = Total_Fatalities)) +
   scale_y_continuous(breaks = seq(0, 500, by = 50))
 
 ```
+The line plot shows a clear trend in the number of fatalities. The period between 2000 and 2013 showes a clear downward trend of the number of fatalities. The period between 2013 and 2022 (Excluding 2023 as there is not data for the whole year) there is a clear upward trend in number of fatalities. This could be due to numerious things, population growth, increased reporting or other factors.
 
 
 
@@ -321,7 +325,7 @@ ggplot(fatalities_by_weather, aes(x = reorder(weatherA, -Total_Fatalities), y = 
   labs(title = "Fatalities by Weather Condition (A)", y = "Number of Fatalities", x='Weather Condition A') +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
-
+From the bar graph above; it's clear that fatal car crashes are most likely to happen when the weather is fine. This is somewhat surprising considering it rains 111 days per year on average in New Zealand. however, it could be due to people driving more taking risks when the weather is better.  https://figure.nz/chart/9dXdcHwVoaE17eVO
 
 
 ### Fatalities by weather B 
@@ -356,7 +360,7 @@ ggplot(crash_data, aes(x = crashSeverity, fill = crashSeverity)) +
   scale_fill_manual(values = severity_colors)
 
 ```
-From the graph above, we can see that most crashes don't result in any injury. this is probably due tot he fact that most crashes occur when the speed limit is 50km/h or below and this is a relatively low speed. another reason for the high number of
+From the graph above, we can see that most crashes don't result in any injury. this is probably due tot he fact that most crashes occur when the speed limit is 50km/h or below and this is a relatively low speed. Another reason for the high number of non-injury crashes could be due to the high number of 'fender benders' that are reported.
 
 ### Crash Severity by Region 
 
