@@ -54,17 +54,26 @@ The CAS data originates from the Waka Kotahi Crash Analysis System, which serves
 
 ## Importance
 
-The CAS dataset is of considerable interest due to its potential to address critical questions surrounding road safety and accident prevention. One of the central questions that this dataset can help answer is: "What statistical techniques can we use to find the relational effect that key variables have on major automotive crashes?" By analyzing the dataset, we  can identify patterns, correlations, and trends that shed light on the factors contributing to major vehicle crashes. 
+The CAS dataset is of considerable interest due to its potential to address critical questions surrounding road safety and accident prevention. One of the central questions that this 
+dataset can help answer is: "What statistical techniques can we use to find the relational effect that key variables have on major automotive crashes?" By analyzing the dataset, we  can 
+identify patterns, correlations, and trends that shed light on the factors contributing to major vehicle crashes. 
 
 ## Types of Data 
 
-The CAS dataset incorporates various types of data, each contributing to a holistic understanding of traffic crashes. This dataset comprises 12 logical variables, 2 date variables, 15 categorical variables, and 41 numeric variables. The inclusion of diverse data types allows for a multi-faceted analysis that captures both quantitative and qualitative aspects of crash incidents.
+The CAS dataset incorporates various types of data, each contributing to a holistic understanding of traffic crashes. This dataset comprises 12 logical variables, 2 date variables, 15 
+categorical variables, and 41 numeric variables. The inclusion of diverse data types allows for a multi-faceted analysis that captures both quantitative and qualitative aspects of crash 
+incidents.
 
 ## Completeness 
 
-It's important to note that the CAS dataset, while comprehensive, does contain missing values. Out of all the columns in the dataset, only X, Y, ObjectID, and crashYear are entirely devoid of missing values. However, various other variables exhibit significant instances of missing data. For instance, variables such as Bridge, debris, fence, vehicle, and waterRiver each have 488,831 missing values. This variation in missing data across variables underscores the complexity of real-world data collection and emphasizes the need for careful consideration when conducting analyses or drawing conclusions.
+It's important to note that the CAS dataset, while comprehensive, does contain missing values. Out of all the columns in the dataset, only X, Y, ObjectID, and crashYear are entirely devoid 
+of missing values. However, various other variables exhibit significant instances of missing data. For instance, variables such as Bridge, debris, fence, vehicle, and waterRiver each have 
+488,831 missing values. This variation in missing data across variables underscores the complexity of real-world data collection and emphasizes the need for careful consideration when 
+conducting analyses or drawing conclusions.
 
-In conclusion, the New Zealand Crash Analysis System (CAS) dataset serves as a valuable resource for investigating the dynamics of traffic crashes in New Zealand. Its extensive coverage, diverse data types, and potential to answer crucial questions make it an essential tool for researchers, policymakers, and analysts aiming to enhance road safety and prevent major automotive crashes. However, the presence of missing data underscores the importance of thorough data preprocessing and analysis techniques to ensure accurate and meaningful insights.
+In conclusion, the New Zealand Crash Analysis System (CAS) dataset serves as a valuable resource for investigating the dynamics of traffic crashes in New Zealand. Its extensive coverage, 
+diverse data types, and potential to answer crucial questions make it an essential tool for researchers, policymakers, and analysts aiming to enhance road safety and prevent major 
+automotive crashes. However, the presence of missing data underscores the importance of thorough data preprocessing and analysis techniques to ensure accurate and meaningful insights.
 
 
 
@@ -325,7 +334,7 @@ ggplot(fatalities_by_weather, aes(x = reorder(weatherA, -Total_Fatalities), y = 
   labs(title = "Fatalities by Weather Condition (A)", y = "Number of Fatalities", x='Weather Condition A') +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
-From the bar graph above; it's clear that fatal car crashes are most likely to happen when the weather is fine. This is somewhat surprising considering it rains 111 days per year on average in New Zealand. however, it could be due to people driving more taking risks when the weather is better.  https://figure.nz/chart/9dXdcHwVoaE17eVO
+From the bar graph above; it's clear that fatal car crashes are most likely to happen when the weather is fine. This is somewhat surprising considering it rains 111 days per year on average in New Zealand. However, it could be due to people driving more taking risks when the weather is better.  https://figure.nz/chart/9dXdcHwVoaE17eVO
 
 
 ### Fatalities by weather B 
@@ -442,8 +451,12 @@ It is likely, due to the significant number of features present in the dataset, 
   - Captions
 
 ## Fletcher Smith 
+- Background and Data
+- EDA plot descriptions
 
 ## Matthew Smaill
+- Data and privacy 
+- EDA plot descriptions
 
 \newpage
 
