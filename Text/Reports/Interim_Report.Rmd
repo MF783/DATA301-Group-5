@@ -214,7 +214,7 @@ This table shows the count and percentage of missing values for each variable in
 
 
 
-```{r,fig.cap = 'Histogram for distribution of advisory speeds in the dataset.  The speed limit distribution shows the distribution shows the number of crashes at different speed limits. (Note, this is not the speed of the crash, just the speed limit at the location of the crash). The most common speed limit that crashes occur at is 50km/h, followed then by 100km/h. This isn't very surprising. Firstly, the default urban speed limit 50km/h, with a high volume of traffic driving under this speed limit across the country each day. Further, this would also included other types of crashes, such as bikes and busses. This then makes sense that it experiences the most crashes. Majority highways and open roads in New Zealand have a speed limit of 100, and if cars where going in excess of 100km/h then these crashes are also included within the 100km/h range.'}
+```{r,fig.cap = 'Histogram for distribution of advisory speeds in the dataset.  The speed limit distribution shows the distribution shows the number of crashes at different speed limits. (Note, this is not the speed of the crash, just the speed limit at the location of the crash). The most common speed limit that crashes occur at is 50km/h, followed then by 100km/h. This isnt very surprising. Firstly, the default urban speed limit 50km/h, with a high volume of traffic driving under this speed limit across the country each day. Further, this would also included other types of crashes, such as bikes and busses. This then makes sense that it experiences the most crashes. Majority highways and open roads in New Zealand have a speed limit of 100, and if cars where going in excess of 100km/h then these crashes are also included within the 100km/h range.'}
 ggplot(crash_data, aes(x = speedLimit)) + 
   geom_histogram(binwidth = 5) +
   theme_minimal() +
@@ -284,7 +284,7 @@ ggplot(crash_data, aes(x = NumberOfLanes)) +
 
 ### Barplot of Fatalities by Vehicle Type
 
-```{r, fig.cap ='The bar plot shows the number of fatalities by vehicle type. It's clear that cars are the most common vehicle to be involved in an fatal crash compared to all other vehicle types. this is expected sine light passenger vehicles accounted for 76.4% of the vehicles on the road. One interesting observation is the fact that there are more trucks involved in fatal crashes than motorcycles when there are more motorcycles on the road. This could be due to trucks being driven more often and they can cause a lot more damage due to their size/ weight compared to motorcycles.'}
+```{r, fig.cap ='The bar plot shows the number of fatalities by vehicle type. Its clear that cars are the most common vehicle to be involved in an fatal crash compared to all other vehicle types. this is expected sine light passenger vehicles accounted for 76.4% of the vehicles on the road. One interesting observation is the fact that there are more trucks involved in fatal crashes than motorcycles when there are more motorcycles on the road. This could be due to trucks being driven more often and they can cause a lot more damage due to their size/ weight compared to motorcycles.'}
 
 # Create the barplot
 ggplot(longer, aes(x = reorder(Type, -Fatalities), y = Fatalities)) + 
@@ -319,7 +319,7 @@ ggplot(fatalities_by_year,aes(x = crashYear, y = Total_Fatalities)) +
 
 ### Fatalities by weather A 
 
-```{r, fig.cap = 'The bar plot shows the number of fatalities categorized by primary weather conditions. It's clear that fatal car crashes are most likely to happen when the weather is fine. This is somewhat surprising considering it rains 111 days per year on average in New Zealand. However, it could be due to people driving more taking risks when the weather is better.'}
+```{r, fig.cap = 'The bar plot shows the number of fatalities categorized by primary weather conditions. Its clear that fatal car crashes are most likely to happen when the weather is fine. This is somewhat surprising considering it rains 111 days per year on average in New Zealand. However, it could be due to people driving more taking risks when the weather is better.'}
 fatalities_by_weather <- crash_data %>%
   group_by(weatherA) %>%
   summarise(Total_Fatalities = sum(fatalCount, na.rm = TRUE))
@@ -355,7 +355,7 @@ ggplot(fatalities_by_weatherB, aes(x = reorder(weatherB, -Total_Fatalities), y =
 
 ### Crash Severity
 
-```{r, fig.cap = 'The bar plot gives an overview of the crash severity distribution in the dataset. Most crashes are non-injury or minor, but there is a significant number of serious and fatal crashes as well. This is probably due to the fact that most crashes occur when the speed limit is 50km/h or below and this is a relatively low speed. Another reason for the high number of non-injury crashes could be due to the high number of 'fender benders' that are reported.'}
+```{r, fig.cap = 'The bar plot gives an overview of the crash severity distribution in the dataset. Most crashes are non-injury or minor, but there is a significant number of serious and fatal crashes as well. This is probably due to the fact that most crashes occur when the speed limit is 50km/h or below and this is a relatively low speed. Another reason for the high number of non-injury crashes could be due to the high number of "fender benders" that are reported.'}
 
 ggplot(crash_data, aes(x = crashSeverity, fill = crashSeverity)) +
   geom_bar() +
@@ -401,7 +401,7 @@ ggplot(crash_severity_by_region, aes(x = region, y = proportion, fill = crashSev
 
 ### Heatmap of Fatal Crashes by year and region.
 
-```{r, fig.cap ='The heatmap shows the distribution of total fatal crashes by year and region. Darker colors represent higher numbers of fatal crashes. The waikato region has had continual high levels of fatal crashs. This peaked in the early 2000. Based on the Waikato Regional Road Safety Report in From the graph above; The Waikato region has had continual high levels of fatal crash's. This peaked in the early 2000. Based on the Waikato Regional Road Safety Report 2000, "The four main contributing factors in all rural crashes in the Region were poor observation, excess speed, road factors and alcohol". This is useful for our anaysis, as it shows four potential causes of a fatal crash. The Nelson Region and the Marlborough on the other hand, had very low levels of fatal crashes. It is interesting to see, that the level of fatal crashes within each region does stay relatively the same overtime, with only some small changes within each region overtime. , "The four main contributing factors in all rural crashes in the Region were poor observation, excess speed, road factors and alcohol". This is useful for our anaysis, as it shows four potential causes of a fatal crash. The Nelson Region and the Marlborough on the other hand, had very low levels of fatal crashes. It is interesting to see, that the level of fatal crashes within each region does stay relatively the same overtime, with only some small changes within each region overtime.'}
+```{r, fig.cap ='The heatmap shows the distribution of total fatal crashes by year and region. Darker colors represent higher numbers of fatal crashes. The waikato region has had continual high levels of fatal crashs. This peaked in the early 2000. Based on the Waikato Regional Road Safety Report in From the graph above; The Waikato region has had continual high levels of fatal crashs. This peaked in the early 2000. Based on the Waikato Regional Road Safety Report 2000, "The four main contributing factors in all rural crashes in the Region were poor observation, excess speed, road factors and alcohol". This is useful for our anaysis, as it shows four potential causes of a fatal crash. The Nelson Region and the Marlborough on the other hand, had very low levels of fatal crashes. It is interesting to see, that the level of fatal crashes within each region does stay relatively the same overtime, with only some small changes within each region overtime. , "The four main contributing factors in all rural crashes in the Region were poor observation, excess speed, road factors and alcohol". This is useful for our anaysis, as it shows four potential causes of a fatal crash. The Nelson Region and the Marlborough on the other hand, had very low levels of fatal crashes. It is interesting to see, that the level of fatal crashes within each region does stay relatively the same overtime, with only some small changes within each region overtime.'}
 
 fatal_summary <- crash_data %>%
   filter(crashSeverity == "Fatal Crash") %>%
@@ -451,7 +451,10 @@ It is likely, due to the significant number of features present in the dataset, 
 - Data and privacy 
 - EDA plot descriptions
 
+# Link to github
+https://github.com/MF783/DATA301-Group-5
 \newpage
 
 # References 
+
 
