@@ -91,6 +91,7 @@ Furthermore, despite the public availability of the CAS dataset, ethical concern
 Analyzing crash data carries significant societal implications, potentially influencing policy decisions and public perceptions. Ethical considerations require data scientists to approach our analysis with a commitment to minimizing harm and promoting societal well-being. We should carefully consider how their findings may impact communities and advocate for responsible data use, recognizing the sensitivity of the information involved.
 
 
+\newpage
 
 ## Steps to Ensure Privacy and Ethical Compliance:
 
@@ -427,11 +428,12 @@ It is likely, due to the significant number of features present in the dataset, 
 
 ## Michael Fry 
 
-- Created and formatted the interm report document 
+- Created and formatted the interim report document 
   - Knittr options, layout, formatting etc. 
+  
 - Exploratory Data Analytics Section
-  - Summary
-  - Grouping etc
+  - Summary statistics
+  - Grouping of variables for plotting etc
   - Plots 
   - Captions
 
