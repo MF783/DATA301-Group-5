@@ -2,8 +2,8 @@
 title: "**DATA303 Interim Report - Group 5**"
 author:
 - 'Michael Fry 300570669'
-- 'Fletcher Smith '
-- 'Matthew Smaill '
+- 'Fletcher Smith 388580854'
+- 'Matthew Smaill 300586382'
 date: "`r format(Sys.time(), '%A, %d %B')`"
 output:
   pdf_document: default
@@ -218,7 +218,7 @@ ggplot(crash_data, aes(x = speedLimit)) +
   scale_x_continuous(breaks = seq(0, 100, by = 10))
 
 ```
-From the graph above;
+
 
 
 ### Advisory Speed Distribution
